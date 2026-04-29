@@ -254,10 +254,15 @@
       gap: 10px;
     }
 
-    .answerBtn:hover{
+    .answerBtn:hover:not(:disabled){
       transform: translateY(-2px);
       background: rgba(59,130,246,0.18);
       border: 1px solid rgba(59,130,246,0.4);
+    }
+
+    .answerBtn:disabled {
+      cursor: default;
+      opacity: 0.6;
     }
 
     .answerLeft{
@@ -343,7 +348,7 @@
           <div class="statValue" id="score">0</div>
         </div>
       </div>
-      <div class="statValue">/ 50</div>
+      <div class="statValue">/ 100</div>
     </div>
 
     <div class="stat">
@@ -351,7 +356,7 @@
         <div class="iconCircle">🏆</div>
         <div>
           <div class="statTitle">Уровень</div>
-          <div class="statValue"><span id="levelNow">1</span> / 5</div>
+          <div class="statValue"><span id="levelNow">1</span> / 10</div>
         </div>
       </div>
       <div class="progressBar">
@@ -401,9 +406,6 @@
 
     <!-- ПРАВАЯ ПАНЕЛЬ -->
     <div class="panel">
-      <h3>🧩 Подсказка</h3>
-      <div class="fact" id="hint">Тут будет подсказка.</div>
-
       <h3 style="margin-top:14px;">💡 Интересный факт</h3>
       <div class="fact" id="fact">Факт будет здесь.</div>
 
@@ -426,9 +428,8 @@
       answers: [
         { text: "Спинной мозг", icon: "🧠", correct: true },
         { text: "Сердце", icon: "❤️", correct: false },
-        { text: "Лёгкие", icon: "🫁", correct: false }
+        { text: "Лёгкие", icon: "💨", correct: false }
       ],
-      hint: "Рефлекс проходит быстро через спинной мозг, чтобы тело сразу реагировало.",
       fact: "Рефлекс может происходить за доли секунды — мозг иногда узнаёт о боли уже после движения."
     },
     {
@@ -440,7 +441,6 @@
         { text: "Кровь", icon: "🩸", correct: false },
         { text: "Нейрон", icon: "⚡", correct: true }
       ],
-      hint: "Нейрон — нервная клетка, которая проводит сигнал.",
       fact: "В организме человека примерно 86 миллиардов нейронов."
     },
     {
@@ -449,10 +449,9 @@
       path: ["👆 Рецептор", "🧠 Спинной мозг", "🧠 Головной мозг"],
       answers: [
         { text: "Головной мозг", icon: "🧠", correct: true },
-        { text: "Печень", icon: "🫀", correct: false },
+        { text: "Печень", icon: "🏥", correct: false },
         { text: "Желудок", icon: "🍽️", correct: false }
       ],
-      hint: "Осознанные ощущения обрабатываются в головном мозге.",
       fact: "Кора больших полушарий отвечает за мышление и анализ сигналов."
     },
     {
@@ -464,7 +463,6 @@
         { text: "Мозжечок", icon: "🧠", correct: true },
         { text: "Нервный узел", icon: "🔵", correct: false }
       ],
-      hint: "Мозжечок помогает делать движения точными и контролирует равновесие.",
       fact: "Если мозжечок повреждён — человеку трудно ходить ровно."
     },
     {
@@ -472,12 +470,66 @@
       question: "Куда идёт сигнал после мозга, чтобы рука отдёрнулась?",
       path: ["🧠 Мозг", "⚡ Нейрон", "💪 Мышца"],
       answers: [
-        { text: "К волосам", icon: "💇", correct: false },
+        { text: "К волосам", icon: "💇‍♂️", correct: false },
         { text: "К коже", icon: "🖐️", correct: false },
         { text: "К мышцам", icon: "💪", correct: true }
       ],
-      hint: "Двигательные нейроны отправляют команду мышцам.",
       fact: "Мышца сокращается только после сигнала от нервной системы."
+    },
+    {
+      title: "Уровень 6: Клинический случай №1",
+      question: "Пациент чувствует укол иглой (боль есть), но не может отдернуть руку. Какое звено цепи повреждено?",
+      path: ["👆 Рецептор", "🧠 Спинной мозг", "❌ Поломка", "💪 Мышца"],
+      answers: [
+        { text: "Чувствительный нейрон", icon: "📡", correct: false },
+        { text: "Двигательный нейрон", icon: "⚡", correct: true },
+        { text: "Рецептор кожи", icon: "🖐️", correct: false }
+      ],
+      fact: "Такое состояние может наблюдаться при периферических параличах."
+    },
+    {
+      title: "Уровень 7: Клинический случай №2",
+      question: "У пациента срабатывает коленный рефлекс (нога дергается), но он абсолютно не чувствует самого удара молоточком. Где пропуск?",
+      path: ["🦵 Рецептор", "🧠 Спинной мозг", "❌ Разрыв", "🧠 Головной мозг"],
+      answers: [
+        { text: "Путь к головному мозгу", icon: "⬆️", correct: true },
+        { text: "Спинной мозг", icon: "🧠", correct: false },
+        { text: "Мышцы ноги", icon: "🍗", correct: false }
+      ],
+      fact: "Это происходит при полных травмах спинного мозга: рефлексы ниже места травмы сохраняются."
+    },
+    {
+      title: "Уровень 8: Ошибка управления",
+      question: "Пациент может двигать рукой, но не может попасть пальцем в нос — рука дрожит и промахивается. Какое звено не выполняет свою функцию?",
+      path: ["🧠 Мозг", "🧠 ???", "💪 Неточное движение"],
+      answers: [
+        { text: "Зрительный нерв", icon: "👁️", correct: false },
+        { text: "Мозжечок", icon: "🧩", correct: true },
+        { text: "Спинной мозг", icon: "🦴", correct: false }
+      ],
+      fact: "Дрожание при выполнении точных действий называется интенционным тремором."
+    },
+    {
+      title: "Уровень 9: Свет в глаза",
+      question: "Врач светит фонариком в глаз, и зрачок сужается. Где находится центр этого рефлекса?",
+      path: ["👁️ Сетчатка", "👁️ Зрительный нерв", "🧠 ???", "👁️ Зрачок"],
+      answers: [
+        { text: "Средний мозг", icon: "🌑", correct: true },
+        { text: "Спинной мозг", icon: "🦴", correct: false },
+        { text: "Кора полушарий", icon: "☁️", correct: false }
+      ],
+      fact: "Зрачковый рефлекс работает даже без участия коры мозга."
+    },
+    {
+      title: "Уровень 10: Фильтрация боли",
+      question: "Ты надел тесную обувь. Сначала это бесит, но через час ты забываешь о ней. Какой отдел мозга «отфильтровал» этот сигнал?",
+      path: ["👞 Рецептор", "🧠 Спинной мозг", "🧠 ???", "🧠 Кора (сознание)"],
+      answers: [
+        { text: "Гипоталамус", icon: "🌡️", correct: false },
+        { text: "Таламус", icon: "🛂", correct: true },
+        { text: "Продолговатый мозг", icon: "🌊", correct: false }
+      ],
+      fact: "Таламус пропускает только 1% всей входящей сенсорной информации к коре головного мозга."
     }
   ];
 
@@ -550,7 +602,6 @@
 
     document.getElementById("levelTitle").innerText = level.title;
     document.getElementById("question").innerText = level.question;
-    document.getElementById("hint").innerText = level.hint;
     document.getElementById("fact").innerText = level.fact;
 
     renderPath(level.path);
@@ -574,17 +625,17 @@
         <div style="opacity:0.6;">▶</div>
       `;
 
-      btn.onclick = () => checkAnswer(answer.correct, level.path);
+      btn.onclick = () => checkAnswer(btn, answer.correct, level.path);
       answersDiv.appendChild(btn);
     });
   }
 
-  function checkAnswer(correct, pathArr){
+  function checkAnswer(clickedBtn, correct, pathArr){
     const result = document.getElementById("result");
+    const allButtons = document.querySelectorAll('.answerBtn');
 
     if(correct){
-      score += 10;
-      document.getElementById("score").innerText = score;
+      allButtons.forEach(btn => btn.disabled = true);
 
       unlockedPath = true;
       renderPath(pathArr);
@@ -605,6 +656,9 @@
 
   document.getElementById("nextBtn").onclick = () => {
     if(!canNext) return;
+    
+    score += 10;
+    document.getElementById("score").innerText = score;
 
     currentLevel++;
 
@@ -623,20 +677,17 @@
     document.getElementById("answers").innerHTML = "";
     document.getElementById("pathLine").innerHTML = "";
 
-    document.getElementById("hint").innerText =
-      "ЦНС состоит из головного и спинного мозга. Она управляет реакциями, движениями, памятью и мышлением.";
-
     document.getElementById("fact").innerText =
       "Нервная система человека — одна из самых сложных систем в природе.";
 
-    document.getElementById("result").innerText =
-      `🏆 Итог: ${score} очков из 50`;
+    document.getElementById("result").innerText = `🏆 Итог: ${score} очков из 100`;
 
     document.getElementById("result").className = "result good";
     document.getElementById("statusText").innerText = "Конец игры";
 
     document.getElementById("progressFill").style.width = "100%";
     renderLevelsList();
+    document.getElementById("nextBtn").style.display = "none";
   }
 
   function restartGame(){
